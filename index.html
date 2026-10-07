@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teklifio — Ücretsiz Fiyat Teklifi ve Teklif Hazırlama Aracı</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E">
+<meta name="google-site-verification" content="zoc4W-XUSicL7_xmTMTU8rq3OGdzvVOckleTW7_EBFo" />
+<meta name="description" content="Fatura kesmeden önce hızlıca fiyat teklifi hazırla. İş teklifi, fiyat kesme, teklif oluşturma — firma bilgilerini gir, saniyeler içinde resim veya PDF olarak indir, WhatsApp'tan gönder. Ücretsiz, kayıt gerekmez.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Teklifio — Ücretsiz Fiyat Teklifi ve Teklif Hazırlama Aracı">
+<meta property="og:description" content="Fatura kesmeden önce hızlıca fiyat teklifi hazırla. Firma bilgilerini gir, saniyeler içinde resim veya PDF olarak indir.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --surface-2: #EFEDE6;
+    --border: #DAD4C6;
+    --text: #26251F;
+    --text-muted: #6A6458;
+    --accent: #4E5C4F;
+    --accent-strong: #3A453B;
+    --accent-soft: #E3E8DF;
+    --danger: #A6402F;
+    --danger-soft: #F3E4E1;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --shadow-sm: 0 1px 2px rgba(38,37,31,0.07), 0 1px 1px rgba(38,37,31,0.04);
+    --font: 'Manrope', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1A1917;
+      --surface: #211F1C;
+      --surface-2: #2A2822;
+      --border: #3A3730;
+      --text: #EEEBE3;
+      --text-muted: #A29C8E;
+      --accent: #93A78F;
+      --accent-strong: #B4C4AE;
+      --accent-soft: #2E362F;
+      --danger: #D98A7B;
+      --danger-soft: #3B2823;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1A1917;
+    --surface: #211F1C;
+    --surface-2: #2A2822;
+    --border: #3A3730;
+    --text: #EEEBE3;
+    --text-muted: #A29C8E;
+    --accent: #93A78F;
+    --accent-strong: #B4C4AE;
+    --accent-soft: #2E362F;
+    --danger: #D98A7B;
+    --danger-soft: #3B2823;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 3rem;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 1.5rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 0;
+    background: var(--surface);
+  }
+  .header-inner { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .35rem .75rem; }
+  .logo { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 1.35rem; letter-spacing: -0.025em; }
+  .logo-mark-bg { fill: var(--accent-strong); }
+  .logo-accent { color: var(--accent); font-weight: 800; }
+  .tagline { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+
+  /* ---------- Intro ---------- */
+  .intro { padding-top: 2.25rem; padding-bottom: 1.75rem; }
+  .intro h1 {
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin: 0 0 0.6rem;
+    max-width: 32ch;
+  }
+  .intro p { color: var(--text-muted); margin: 0; max-width: 46ch; font-size: 0.97rem; }
+
+  /* ---------- Panels ---------- */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    margin: 0 0 1rem;
+  }
+  .panel h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+    letter-spacing: -0.005em;
+  }
+  .panel h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 1.25rem 0 0.75rem;
+    color: var(--text);
+  }
+  .panel h3:first-of-type { margin-top: 0; }
+
+  /* ---------- Template picker ---------- */
+  .template-options { display: flex; gap: 0.75rem; }
+  .template-option {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 0.5rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .template-option:hover { border-color: var(--accent); }
+  .template-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .template-option.active { border-color: var(--accent); background: var(--accent-soft); }
+  .template-swatch {
+    width: 100%;
+    height: 46px;
+    border-radius: 5px;
+    background: var(--surface-2);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .klasik-swatch::before {
+    content: ""; position: absolute; top: 6px; left: 6px; right: 6px; height: 6px;
+    border-bottom: 1.5px solid var(--accent);
+  }
+  .klasik-swatch::after {
+    content: ""; position: absolute; top: 20px; left: 6px; right: 6px; height: 14px;
+    background: repeating-linear-gradient(to bottom, var(--border) 0 1.5px, transparent 1.5px 6px);
+  }
+  .modern-swatch { background: var(--accent-soft); }
+  .modern-swatch::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 16px; background: var(--accent);
+  }
+  .modern-swatch::after {
+    content: ""; position: absolute; bottom: 6px; right: 6px; width: 20px; height: 8px;
+    border-radius: 4px; background: var(--accent);
+  }
+
+  /* ---------- Form fields ---------- */
+  .field-group { margin-bottom: 0.9rem; }
+  .field-group:last-child { margin-bottom: 0; }
+  .field-row { display: flex; gap: 0.75rem; }
+  .field-row .field-group { flex: 1; }
+  label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+  }
+  .optional-tag { font-weight: 400; opacity: 0.75; }
+  .optional-toggle {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-family: var(--font);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-strong);
+    background: none;
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.55rem 0.7rem;
+    width: 100%;
+    cursor: pointer;
+    text-align: left;
+  }
+  .optional-toggle:hover { border-color: var(--accent); }
+  .optional-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .optional-toggle .optional-tag { color: var(--text-muted); }
+  .optional-content-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.35rem; }
+  .optional-content-head label { margin-bottom: 0; }
+  .optional-input-row { display: flex; gap: 0.5rem; align-items: center; }
+  .optional-input-row input { flex: 1; }
+  .optional-remove {
+    flex-shrink: 0;
+    width: 38px; height: 38px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font);
+    font-size: 1.35rem;
+    line-height: 1;
+    color: var(--danger);
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .optional-remove:hover { background: var(--danger-soft); border-color: var(--danger); }
+  .optional-remove:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  input[type="text"], input[type="number"], input[type="date"], textarea, input[type="file"] {
+    width: 100%;
+    font-family: var(--font);
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.7rem;
+  }
+  textarea { min-height: 4.5rem; resize: vertical; }
+  input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+  input::placeholder, textarea::placeholder { color: var(--text-muted); }
+  input[type="file"] { padding: 0.5rem; font-size: 0.85rem; }
+
+  /* ---------- Items ---------- */
+  .item-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0.85rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.6rem;
+  }
+  .item-row .item-sub { display: flex; gap: 0.5rem; align-items: flex-end; }
+  .item-row .item-sub .field-group { flex: 1; margin-bottom: 0; }
+  .item-row .item-sub .field-group input { text-align: right; }
+  .remove-item-btn {
+    flex-shrink: 0;
+    width: 38px; height: 38px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--danger);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .remove-item-btn:hover { background: var(--danger-soft); border-color: var(--danger); }
+  .remove-item-btn:focus-visible { outline: 2px solid var(--danger); outline-offset: 1px; }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: var(--font);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    border: 1.5px solid transparent;
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+  }
+  .btn-secondary:hover { border-color: var(--accent); }
+  .btn-secondary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .btn-primary {
+    display: block;
+    width: 100%;
+    font-family: var(--font);
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent-strong);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+    text-align: center;
+  }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-primary:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; }
+  .btn-primary:disabled { opacity: .55; cursor: not-allowed; }
+
+  .download-panel { display: flex; flex-direction: column; gap: 0.6rem; }
+  .download-panel .btn-secondary { justify-content: center; width: 100%; }
+  .download-status { font-size: 0.8rem; color: var(--text-muted); text-align: center; min-height: 1.1em; }
+
+  /* ---------- Preview (always a white "paper" regardless of site theme) ---------- */
+  #quotePreviewWrap {
+    background: var(--surface-2);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    overflow-x: auto;
+  }
+  #quotePreview {
+    background: #FFFFFF;
+    color: #26251F;
+    width: 100%;
+    min-width: 320px;
+    max-width: 480px;
+    margin: 0 auto;
+    font-family: var(--font);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  #quotePreview.template-klasik > table,
+  #quotePreview.template-modern .doc-body > table {
+    table-layout: fixed;
+  }
+  #quotePreview.template-klasik > table th:nth-child(1), #quotePreview.template-klasik > table td:nth-child(1),
+  #quotePreview.template-modern .doc-body > table th:nth-child(1), #quotePreview.template-modern .doc-body > table td:nth-child(1) { width: 42%; }
+  #quotePreview.template-klasik > table th:nth-child(2), #quotePreview.template-klasik > table td:nth-child(2),
+  #quotePreview.template-modern .doc-body > table th:nth-child(2), #quotePreview.template-modern .doc-body > table td:nth-child(2) { width: 16%; }
+  #quotePreview.template-klasik > table th:nth-child(3), #quotePreview.template-klasik > table td:nth-child(3),
+  #quotePreview.template-modern .doc-body > table th:nth-child(3), #quotePreview.template-modern .doc-body > table td:nth-child(3) { width: 21%; }
+  #quotePreview.template-klasik > table th:nth-child(4), #quotePreview.template-klasik > table td:nth-child(4),
+  #quotePreview.template-modern .doc-body > table th:nth-child(4), #quotePreview.template-modern .doc-body > table td:nth-child(4) { width: 21%; }
+
+  /* Klasik template */
+  #quotePreview.template-klasik { padding: 2rem 1.75rem; border: 1px solid #E1DED4; }
+  #quotePreview .doc-head > div { min-width: 0; }
+  #quotePreview.template-klasik .doc-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 2px solid #4E5C4F; padding-bottom: 0.9rem; margin-bottom: 1.1rem;
+  }
+  #quotePreview.template-klasik .doc-logo { max-width: 110px; max-height: 52px; object-fit: contain; margin-bottom: 0.4rem; }
+  #quotePreview.template-klasik .doc-company { font-weight: 800; font-size: 1.05rem; }
+  #quotePreview.template-klasik .doc-meta { font-size: 0.78rem; color: #6A6458; margin-top: 0.15rem; }
+  #quotePreview.template-klasik .doc-label { font-weight: 800; font-size: 1.3rem; letter-spacing: 0.02em; color: #4E5C4F; text-align: right; }
+  #quotePreview.template-klasik .doc-sub { text-align: right; font-size: 0.78rem; color: #6A6458; margin-top: 0.2rem; }
+  #quotePreview.template-klasik .doc-to { font-size: 0.85rem; margin-bottom: 1rem; }
+  #quotePreview.template-klasik .doc-to strong { display: block; font-size: 0.72rem; text-transform: none; color: #6A6458; font-weight: 600; margin-bottom: 0.15rem; }
+  #quotePreview.template-klasik table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  #quotePreview.template-klasik th {
+    text-align: left; font-weight: 700; padding: 0.5rem 0.4rem;
+    border-bottom: 1.5px solid #26251F; font-size: 0.75rem;
+  }
+  #quotePreview.template-klasik td { padding: 0.5rem 0.4rem; border-bottom: 1px solid #DAD4C6; }
+  #quotePreview.template-klasik th.num, #quotePreview.template-klasik td.num { text-align: right; white-space: nowrap; }
+  #quotePreview.template-klasik .doc-totals { margin-top: 0.9rem; display: flex; justify-content: flex-end; }
+  #quotePreview.template-klasik .doc-totals table { width: auto; min-width: 220px; }
+  #quotePreview.template-klasik .doc-totals td { border-bottom: none; padding: 0.3rem 0.4rem; }
+  #quotePreview.template-klasik .doc-totals .grand td { font-weight: 800; font-size: 0.95rem; border-top: 1.5px solid #26251F; padding-top: 0.55rem; }
+  #quotePreview.template-klasik .doc-note { margin-top: 1.25rem; font-size: 0.78rem; color: #6A6458; white-space: pre-wrap; }
+
+  /* Modern template */
+  #quotePreview.template-modern { border-radius: 16px; overflow: hidden; border: 1px solid #E1DED4; }
+  #quotePreview.template-modern .doc-head {
+    background: #4E5C4F; color: #fff; padding: 1.5rem 1.75rem;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+  }
+  #quotePreview.template-modern .doc-logo { max-width: 100px; max-height: 44px; object-fit: contain; margin-bottom: 0.35rem; filter: brightness(0) invert(1); }
+  #quotePreview.template-modern .doc-company { font-weight: 800; font-size: 1.05rem; }
+  #quotePreview.template-modern .doc-meta { font-size: 0.78rem; opacity: 0.85; margin-top: 0.15rem; }
+  #quotePreview.template-modern .doc-label { font-weight: 800; font-size: 1.2rem; text-align: right; }
+  #quotePreview.template-modern .doc-sub { text-align: right; font-size: 0.78rem; opacity: 0.85; margin-top: 0.2rem; }
+  #quotePreview.template-modern .doc-body { padding: 1.5rem 1.75rem; }
+  #quotePreview.template-modern .doc-to { font-size: 0.85rem; margin-bottom: 1rem; }
+  #quotePreview.template-modern .doc-to strong { display: block; font-size: 0.72rem; color: #6A6458; font-weight: 600; margin-bottom: 0.15rem; }
+  #quotePreview.template-modern table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  #quotePreview.template-modern th {
+    text-align: left; font-weight: 700; padding: 0.5rem 0.4rem; font-size: 0.72rem;
+    color: #6A6458; border-bottom: 1px solid #DAD4C6;
+  }
+  #quotePreview.template-modern td { padding: 0.55rem 0.4rem; }
+  #quotePreview.template-modern tr:nth-child(even) td { background: #F7F6F2; }
+  #quotePreview.template-modern th.num, #quotePreview.template-modern td.num { text-align: right; white-space: nowrap; }
+  #quotePreview.template-modern .doc-totals { margin-top: 1rem; display: flex; justify-content: flex-end; }
+  #quotePreview.template-modern .grand-pill {
+    background: #E3E8DF; color: #3A453B; border-radius: 999px;
+    padding: 0.55rem 1.1rem; font-weight: 800; font-size: 0.95rem;
+  }
+  #quotePreview.template-modern .doc-note { margin-top: 1.25rem; font-size: 0.78rem; color: #6A6458; white-space: pre-wrap; }
+
+  /* ---------- Ad slot ---------- */
+
+  .ad-slot {
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1.1rem;
+    text-align: center;
+    margin: 1.5rem 1.25rem;
+  }
+  .ad-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+
+  /* ---------- Footer ---------- */
+  .site-footer { padding: 1.5rem 1.25rem 0.5rem; border-top: 1px solid var(--border); margin-top: 1rem; }
+  .site-footer p { font-size: 0.76rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 0.5rem; max-width: 56ch; }
+  .site-footer .copyright { font-size: 0.72rem; color: var(--text-muted); opacity: .8; margin-top: 0.75rem; }
+  .site-footer .footer-links { font-size: 0.78rem; }
+  .site-footer .footer-links a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 2px; }
+
+  @media (min-width: 560px) {
+    .intro h1 { font-size: 1.9rem; }
+  }
+
+  @media (min-width: 900px) {
+    .wrap { max-width: 1040px; }
+    .layout { display: grid; grid-template-columns: 1fr 460px; gap: 1.25rem; align-items: start; }
+    .col-side { position: sticky; top: 1.25rem; }
+    #quotePreview { max-width: 520px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <span class="logo">
+      <span class="logo-text">Teklif<span class="logo-accent">io</span></span>
+    </span>
+    <span class="tagline">Teklif hazırlama aracı</span>
+  </div>
+</header>
+
+<section class="intro wrap">
+  <h1>Teklifini birkaç dakikada hazırla</h1>
+  <p>Ücretsiz fiyat teklifi hazırlama aracı — firma ve kalem bilgilerini gir, şablonlardan birini seç, teklifini resim ya da PDF olarak indir. Kayıt gerekmez, girdiğin bilgiler bu cihazdan dışarı çıkmaz.</p>
+</section>
+
+<div class="wrap">
+<div class="layout">
+<div class="col-main">
+
+  <section class="panel">
+    <h2>Şablon seç</h2>
+    <div class="template-options">
+      <button type="button" class="template-option" data-template="klasik">
+        <span class="template-swatch klasik-swatch"></span>
+        Klasik
+      </button>
+      <button type="button" class="template-option active" data-template="modern">
+        <span class="template-swatch modern-swatch"></span>
+        Modern
+      </button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Bilgileri gir</h2>
+
+    <h3>Firma bilgileri</h3>
+    <div class="field-group">
+      <label for="companyName">Firma adı</label>
+      <input id="companyName" type="text" placeholder="Örn. Yılmaz İnşaat">
+    </div>
+    <div class="field-group">
+      <label for="companyLogo">Firma logosu <span class="optional-tag">(isteğe bağlı)</span></label>
+      <input id="companyLogo" type="file" accept="image/*">
+    </div>
+    <div class="field-row">
+      <div class="field-group optional-field">
+        <button type="button" class="optional-toggle">+ Telefon ekle <span class="optional-tag">(isteğe bağlı)</span></button>
+        <div class="optional-content" hidden>
+          <label for="companyPhone">Telefon</label>
+          <div class="optional-input-row">
+            <input id="companyPhone" type="text" placeholder="0555 000 00 00">
+            <button type="button" class="optional-remove" aria-label="Kaldır">×</button>
+          </div>
+        </div>
+      </div>
+      <div class="field-group optional-field">
+        <button type="button" class="optional-toggle">+ E-posta ekle <span class="optional-tag">(isteğe bağlı)</span></button>
+        <div class="optional-content" hidden>
+          <label for="companyEmail">E-posta</label>
+          <div class="optional-input-row">
+            <input id="companyEmail" type="text" placeholder="ornek@firma.com">
+            <button type="button" class="optional-remove" aria-label="Kaldır">×</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Teklif bilgileri</h3>
+    <div class="field-group optional-field">
+      <button type="button" class="optional-toggle">+ Başlığı değiştir <span class="optional-tag">(isteğe bağlı)</span></button>
+      <div class="optional-content" hidden>
+        <label for="docTitle">Başlık</label>
+        <div class="optional-input-row">
+          <input id="docTitle" type="text" value="Teklif" data-default="Teklif">
+          <button type="button" class="optional-remove" aria-label="Kaldır">×</button>
+        </div>
+      </div>
+    </div>
+    <div class="field-group optional-field">
+      <button type="button" class="optional-toggle">+ Müşteri adı ekle <span class="optional-tag">(isteğe bağlı)</span></button>
+      <div class="optional-content" hidden>
+        <label for="customerName">Müşteri adı</label>
+        <div class="optional-input-row">
+          <input id="customerName" type="text" placeholder="Örn. Ahmet Kaya">
+          <button type="button" class="optional-remove" aria-label="Kaldır">×</button>
+        </div>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field-group">
+        <label for="quoteNumber">Teklif no</label>
+        <input id="quoteNumber" type="text">
+      </div>
+      <div class="field-group">
+        <label for="quoteDate">Tarih</label>
+        <input id="quoteDate" type="date">
+      </div>
+    </div>
+
+    <h3>Kalemler</h3>
+    <div id="itemsList"></div>
+    <button type="button" id="addItemBtn" class="btn-secondary">+ Kalem ekle</button>
+
+    <h3>Diğer</h3>
+    <div class="field-group optional-field">
+      <button type="button" class="optional-toggle">+ KDV oranı ekle <span class="optional-tag">(isteğe bağlı)</span></button>
+      <div class="optional-content" hidden>
+        <label for="vatRate">KDV oranı (%)</label>
+        <div class="optional-input-row">
+          <input id="vatRate" type="number" value="0" min="0" max="100" step="1">
+          <button type="button" class="optional-remove" aria-label="Kaldır">×</button>
+        </div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label for="quoteNote">Not <span class="optional-tag">(isteğe bağlı)</span></label>
+      <textarea id="quoteNote" placeholder="Ödeme koşulları, geçerlilik süresi vb."></textarea>
+    </div>
+  </section>
+
+</div>
+<div class="col-side">
+
+  <section class="panel">
+    <h2>Önizleme</h2>
+    <div id="quotePreviewWrap">
+      <div id="quotePreview" class="template-modern"></div>
+    </div>
+  </section>
+
+  <section class="panel download-panel">
+    <button type="button" id="downloadImageBtn" class="btn-primary">Resim Olarak İndir</button>
+    <button type="button" id="downloadPdfBtn" class="btn-secondary">PDF Olarak İndir</button>
+    <p class="download-status" id="downloadStatus"></p>
+  </section>
+
+</div>
+</div>
+
+<div class="ad-slot">
+  <!-- Reklam ağı entegrasyonu (ör. Google AdSense) burada yer alacak -->
+  <span class="ad-label">Reklam alanı</span>
+</div>
+
+<footer class="site-footer">
+  <p>Girdiğin bilgiler yalnızca bu cihazda, tarayıcı içinde işlenir; bir sunucuya gönderilmez ya da kaydedilmez. Bu araçla oluşturulan belge bir fiyat teklifidir, resmi bir fatura değildir.</p>
+  <p class="footer-links"><a href="gizlilik-politikasi.html">Gizlilik Politikası</a> · <a href="kullanim-sartlari.html">Kullanım Şartları</a></p>
+  <p class="copyright">© 2026 Teklifio</p>
+</footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var itemsList = document.getElementById('itemsList');
+  var addItemBtn = document.getElementById('addItemBtn');
+  var preview = document.getElementById('quotePreview');
+  var currentTemplate = 'modern';
+  var logoDataUrl = null;
+  var itemCounter = 0;
+
+  function fmtMoney(n) {
+    try {
+      return new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', minimumFractionDigits: 2 }).format(n || 0);
+    } catch (e) {
+      return (n || 0).toFixed(2) + ' TL';
+    }
+  }
+
+  function fmtDate(d) {
+    try {
+      return new Intl.DateTimeFormat('tr-TR', { day: '2-digit', month: 'long', year: 'numeric' }).format(d);
+    } catch (e) {
+      return d.toLocaleDateString();
+    }
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str == null ? '' : String(str);
+    return div.innerHTML;
+  }
+
+  /* ---------- Items ---------- */
+  function makeItemRow() {
+    itemCounter += 1;
+    var row = document.createElement('div');
+    row.className = 'item-row';
+    row.dataset.id = itemCounter;
+    row.innerHTML =
+      '<div class="field-group">' +
+        '<label>Açıklama</label>' +
+        '<input type="text" class="item-desc" placeholder="Örn. İşçilik / malzeme">' +
+      '</div>' +
+      '<div class="item-sub">' +
+        '<div class="field-group"><label>Adet</label><input type="number" class="item-qty" value="1" min="0" step="1"></div>' +
+        '<div class="field-group"><label>Birim fiyat</label><input type="number" class="item-price" value="0" min="0" step="0.01"></div>' +
+        '<button type="button" class="remove-item-btn" aria-label="Kalemi sil">×</button>' +
+      '</div>';
+    return row;
+  }
+
+  function addItem() {
+    itemsList.appendChild(makeItemRow());
+    updatePreview();
+  }
+
+  itemsList.addEventListener('input', updatePreview);
+  itemsList.addEventListener('click', function (e) {
+    var btn = e.target.closest('.remove-item-btn');
+    if (!btn) return;
+    var row = btn.closest('.item-row');
+    if (row) row.remove();
+    updatePreview();
+  });
+  addItemBtn.addEventListener('click', addItem);
+
+  function collectItems() {
+    var rows = itemsList.querySelectorAll('.item-row');
+    var items = [];
+    rows.forEach(function (row) {
+      var desc = row.querySelector('.item-desc').value.trim();
+      var qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+      var price = parseFloat(row.querySelector('.item-price').value) || 0;
+      if (desc || qty || price) {
+        items.push({ desc: desc || 'Kalem', qty: qty, price: price, total: qty * price });
+      }
+    });
+    return items;
+  }
+
+  /* ---------- Template switching ---------- */
+  document.querySelectorAll('.template-option').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.template-option').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentTemplate = btn.dataset.template;
+      preview.className = 'template-' + currentTemplate;
+      updatePreview();
+    });
+  });
+
+  /* ---------- Logo upload ---------- */
+  document.getElementById('companyLogo').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) { logoDataUrl = null; updatePreview(); return; }
+    var reader = new FileReader();
+    reader.onload = function (ev) {
+      logoDataUrl = ev.target.result;
+      updatePreview();
+    };
+    reader.readAsDataURL(file);
+  });
+
+  /* ---------- Preview rendering ---------- */
+  var fields = ['companyName', 'companyPhone', 'companyEmail', 'docTitle', 'customerName', 'quoteNumber', 'quoteDate', 'vatRate', 'quoteNote'];
+  fields.forEach(function (id) {
+    var el = document.getElementById(id);
+    el.addEventListener('input', updatePreview);
+  });
+
+  function updatePreview() {
+    var companyName = document.getElementById('companyName').value.trim() || 'Firma Adı';
+    var docTitle = document.getElementById('docTitle').value.trim() || 'Teklif';
+    var companyPhone = document.getElementById('companyPhone').value.trim();
+    var companyEmail = document.getElementById('companyEmail').value.trim();
+    var customerName = document.getElementById('customerName').value.trim();
+    var docToHtml = customerName ? '<div class="doc-to"><strong>Teklif sahibi</strong>' + escapeHtml(customerName) + '</div>' : '';
+    var quoteNumber = document.getElementById('quoteNumber').value.trim();
+    var quoteDateVal = document.getElementById('quoteDate').value;
+    var vatRate = parseFloat(document.getElementById('vatRate').value) || 0;
+    var quoteNote = document.getElementById('quoteNote').value.trim();
+
+    var items = collectItems();
+    var subtotal = items.reduce(function (sum, it) { return sum + it.total; }, 0);
+    var vatAmount = subtotal * (vatRate / 100);
+    var grandTotal = subtotal + vatAmount;
+
+    var metaBits = [];
+    if (companyPhone) metaBits.push(escapeHtml(companyPhone));
+    if (companyEmail) metaBits.push(escapeHtml(companyEmail));
+    var metaLine = metaBits.join(' · ');
+
+    var dateDisplay = quoteDateVal ? fmtDate(new Date(quoteDateVal + 'T00:00:00')) : fmtDate(new Date());
+
+    var logoHtml = logoDataUrl ? '<img class="doc-logo" src="' + logoDataUrl + '" alt="">' : '';
+
+    var rowsHtml = items.length
+      ? items.map(function (it) {
+          return '<tr><td>' + escapeHtml(it.desc) + '</td><td class="num">' + it.qty + '</td><td class="num">' + fmtMoney(it.price) + '</td><td class="num">' + fmtMoney(it.total) + '</td></tr>';
+        }).join('')
+      : '<tr><td colspan="4" style="color:#6A6458;">Henüz kalem eklenmedi</td></tr>';
+
+    var noteHtml = quoteNote ? '<div class="doc-note">' + escapeHtml(quoteNote) + '</div>' : '';
+
+    var html;
+    if (currentTemplate === 'klasik') {
+      html =
+        '<div class="doc-head">' +
+          '<div>' + logoHtml + '<div class="doc-company">' + escapeHtml(companyName) + '</div>' +
+            (metaLine ? '<div class="doc-meta">' + metaLine + '</div>' : '') +
+          '</div>' +
+          '<div><div class="doc-label">' + escapeHtml(docTitle.toUpperCase()) + '</div>' +
+            '<div class="doc-sub">' + (quoteNumber ? 'No: ' + escapeHtml(quoteNumber) + ' · ' : '') + dateDisplay + '</div>' +
+          '</div>' +
+        '</div>' +
+        docToHtml +
+        '<table><thead><tr><th>Açıklama</th><th class="num">Adet</th><th class="num">Birim Fiyat</th><th class="num">Tutar</th></tr></thead>' +
+        '<tbody>' + rowsHtml + '</tbody></table>' +
+        '<div class="doc-totals"><table>' +
+          '<tr><td>Ara Toplam</td><td class="num">' + fmtMoney(subtotal) + '</td></tr>' +
+          (vatRate ? '<tr><td>KDV (%' + vatRate + ')</td><td class="num">' + fmtMoney(vatAmount) + '</td></tr>' : '') +
+          '<tr class="grand"><td>Genel Toplam</td><td class="num">' + fmtMoney(grandTotal) + '</td></tr>' +
+        '</table></div>' +
+        noteHtml;
+    } else {
+      html =
+        '<div class="doc-head">' +
+          '<div>' + logoHtml + '<div class="doc-company">' + escapeHtml(companyName) + '</div>' +
+            (metaLine ? '<div class="doc-meta">' + metaLine + '</div>' : '') +
+          '</div>' +
+          '<div><div class="doc-label">' + escapeHtml(docTitle) + '</div>' +
+            '<div class="doc-sub">' + (quoteNumber ? 'No: ' + escapeHtml(quoteNumber) + ' · ' : '') + dateDisplay + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="doc-body">' +
+          docToHtml +
+          '<table><thead><tr><th>Açıklama</th><th class="num">Adet</th><th class="num">Birim Fiyat</th><th class="num">Tutar</th></tr></thead>' +
+          '<tbody>' + rowsHtml + '</tbody></table>' +
+          '<div class="doc-totals"><span class="grand-pill">Genel Toplam ' + fmtMoney(grandTotal) + '</span></div>' +
+          (subtotal || vatRate ? '<div class="doc-note">Ara toplam: ' + fmtMoney(subtotal) + (vatRate ? ' · KDV (%' + vatRate + '): ' + fmtMoney(vatAmount) : '') + '</div>' : '') +
+          noteHtml +
+        '</div>';
+    }
+
+    preview.innerHTML = html;
+  }
+
+  /* ---------- Downloads ---------- */
+  var statusEl = document.getElementById('downloadStatus');
+  function setStatus(msg) { statusEl.textContent = msg || ''; }
+
+  function renderCanvas() {
+    // Ekrandaki önizleme mobilde dar olabilir; indirilen belge en az
+    // 640px genişlikte olsun (kısa içerikte daralmasın), ama içerik
+    // gerektirirse doğal şekilde daha da genişleyebilsin.
+    var originalWidth = preview.style.width;
+    var originalMinWidth = preview.style.minWidth;
+    var originalMaxWidth = preview.style.maxWidth;
+    preview.style.width = 'fit-content';
+    preview.style.minWidth = '480px';
+    preview.style.maxWidth = 'none';
+    return html2canvas(preview, { backgroundColor: '#FFFFFF', scale: 2, useCORS: true })
+      .then(function (canvas) {
+        preview.style.width = originalWidth;
+        preview.style.minWidth = originalMinWidth;
+        preview.style.maxWidth = originalMaxWidth;
+        return canvas;
+      })
+      .catch(function (err) {
+        preview.style.width = originalWidth;
+        preview.style.minWidth = originalMinWidth;
+        preview.style.maxWidth = originalMaxWidth;
+        throw err;
+      });
+  }
+
+  function canvasToBlob(canvas) {
+    return new Promise(function (resolve) {
+      canvas.toBlob(function (blob) { resolve(blob); }, 'image/png');
+    });
+  }
+
+  function saveFile(filename, blob) {
+    // Yayınlanan sayfalarda düz <a download> çalışmaz; bu yüzden önce
+    // platformun "downloads" yeteneğini deniyoruz, o yoksa (örn. dosya
+    // yerelde açıldıysa) normal tarayıcı indirmesine düşüyoruz.
+    return (window.claude && typeof window.claude.use === 'function'
+      ? window.claude.use('downloads')
+      : Promise.resolve(null)
+    ).then(function (downloads) {
+      if (downloads) {
+        return downloads.save({ filename: filename, data: blob }).then(function () {
+          return true;
+        });
+      }
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.download = filename;
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+      return true;
+    });
+  }
+
+  document.getElementById('downloadImageBtn').addEventListener('click', function () {
+    setStatus('Hazırlanıyor…');
+    renderCanvas()
+      .then(canvasToBlob)
+      .then(function (blob) { return saveFile('teklif.png', blob); })
+      .then(function () { setStatus('Hazır — indirme onayını kontrol edin.'); })
+      .catch(function (err) {
+        if (err && err.code === 'declined') { setStatus('İndirme iptal edildi.'); return; }
+        setStatus('Bir sorun oluştu, tekrar deneyin.');
+      });
+  });
+
+  document.getElementById('downloadPdfBtn').addEventListener('click', function () {
+    setStatus('Hazırlanıyor…');
+    renderCanvas().then(function (canvas) {
+      var imgData = canvas.toDataURL('image/png');
+      var w = canvas.width / 2;
+      var h = canvas.height / 2;
+      var jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
+      if (!jsPDFCtor) throw new Error('jsPDF yüklenemedi');
+      var pdf = new jsPDFCtor({ orientation: w > h ? 'landscape' : 'portrait', unit: 'pt', format: [w, h] });
+      pdf.addImage(imgData, 'PNG', 0, 0, w, h);
+      var blob = pdf.output('blob');
+      return saveFile('teklif.pdf', blob);
+    })
+      .then(function () { setStatus('Hazır — indirme onayını kontrol edin.'); })
+      .catch(function (err) {
+        if (err && err.code === 'declined') { setStatus('İndirme iptal edildi.'); return; }
+        setStatus('Bir sorun oluştu, tekrar deneyin.');
+      });
+  });
+
+  /* ---------- Remember company info on this device only ---------- */
+  function restoreCompanyInfo() {
+    try {
+      var saved = localStorage.getItem('teklifio_company_info');
+      if (!saved) return;
+      var data = JSON.parse(saved);
+      if (data.companyName) document.getElementById('companyName').value = data.companyName;
+      if (data.companyPhone) document.getElementById('companyPhone').value = data.companyPhone;
+      if (data.companyEmail) document.getElementById('companyEmail').value = data.companyEmail;
+    } catch (e) { /* sessizce yoksay */ }
+  }
+  function saveCompanyInfo() {
+    try {
+      localStorage.setItem('teklifio_company_info', JSON.stringify({
+        companyName: document.getElementById('companyName').value,
+        companyPhone: document.getElementById('companyPhone').value,
+        companyEmail: document.getElementById('companyEmail').value
+      }));
+    } catch (e) { /* sessizce yoksay */ }
+  }
+  ['companyName', 'companyPhone', 'companyEmail'].forEach(function (id) {
+    document.getElementById(id).addEventListener('change', saveCompanyInfo);
+  });
+
+  /* ---------- Optional field toggles ---------- */
+  document.querySelectorAll('.optional-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var content = btn.nextElementSibling;
+      content.hidden = false;
+      btn.hidden = true;
+      var field = content.querySelector('input, textarea');
+      if (field) field.focus();
+    });
+  });
+  document.querySelectorAll('.optional-remove').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var content = btn.closest('.optional-content');
+      var toggle = content.previousElementSibling;
+      var field = content.querySelector('input, textarea');
+      if (field) {
+        var def = field.getAttribute('data-default');
+        field.value = def !== null ? def : (field.type === 'number' ? '0' : '');
+      }
+      content.hidden = true;
+      toggle.hidden = false;
+      updatePreview();
+    });
+  });
+
+  /* ---------- Init ---------- */
+  document.getElementById('quoteDate').valueAsDate = new Date();
+  document.getElementById('quoteNumber').value = 'TKL-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 900) + 100);
+  restoreCompanyInfo();
+  addItem();
+  addItem();
+  updatePreview();
+})();
+</script>
+</body>
+</html>
