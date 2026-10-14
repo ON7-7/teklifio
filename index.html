@@ -5,11 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Teklifio — Ücretsiz Fiyat Teklifi ve Teklif Hazırlama Aracı</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E">
-<meta name="google-site-verification" content="zoc4W-XUSicL7_xmTMTU8rq3OGdzvVOckleTW7_EBFo" />
 <meta name="description" content="Fatura kesmeden önce hızlıca fiyat teklifi hazırla. İş teklifi, fiyat kesme, teklif oluşturma — firma bilgilerini gir, saniyeler içinde resim veya PDF olarak indir, WhatsApp'tan gönder. Ücretsiz, kayıt gerekmez.">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="Teklifio — Ücretsiz Fiyat Teklifi ve Teklif Hazırlama Aracı">
 <meta property="og:description" content="Fatura kesmeden önce hızlıca fiyat teklifi hazırla. Firma bilgilerini gir, saniyeler içinde resim veya PDF olarak indir.">
+<meta property="og:image" content="https://teklifio.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,6 +27,7 @@
     --text-muted: #6A6458;
     --accent: #4E5C4F;
     --accent-strong: #3A453B;
+    --on-accent: #FFFFFF;
     --accent-soft: #E3E8DF;
     --danger: #A6402F;
     --danger-soft: #F3E4E1;
@@ -43,6 +47,7 @@
       --text-muted: #A29C8E;
       --accent: #93A78F;
       --accent-strong: #B4C4AE;
+      --on-accent: #1A1917;
       --accent-soft: #2E362F;
       --danger: #D98A7B;
       --danger-soft: #3B2823;
@@ -58,6 +63,7 @@
     --text-muted: #A29C8E;
     --accent: #93A78F;
     --accent-strong: #B4C4AE;
+      --on-accent: #1A1917;
     --accent-soft: #2E362F;
     --danger: #D98A7B;
     --danger-soft: #3B2823;
@@ -292,7 +298,7 @@
     font-family: var(--font);
     font-size: 0.98rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--on-accent);
     background: var(--accent-strong);
     border: none;
     border-radius: var(--radius-sm);
@@ -574,7 +580,7 @@
 
 <footer class="site-footer">
   <p>Girdiğin bilgiler yalnızca bu cihazda, tarayıcı içinde işlenir; bir sunucuya gönderilmez ya da kaydedilmez. Bu araçla oluşturulan belge bir fiyat teklifidir, resmi bir fatura değildir.</p>
-  <p class="footer-links"><a href="gizlilik-politikasi.html">Gizlilik Politikası</a> · <a href="kullanim-sartlari.html">Kullanım Şartları</a></p>
+  <p class="footer-links"><a href="gizlilik-politikasi.html">Gizlilik Politikası</a> · <a href="kullanim-sartlari.html">Kullanım Şartları</a> · <a href="iletisim.html">İletişim</a></p>
   <p class="copyright">© 2026 Teklifio</p>
 </footer>
 
