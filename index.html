@@ -349,6 +349,7 @@
   /* Klasik template */
   #quotePreview.template-klasik { padding: 2rem 1.75rem; border: 1px solid #E1DED4; }
   #quotePreview .doc-head > div { min-width: 0; }
+  #quotePreview .doc-credit { margin-top: 1.5rem; padding-top: 0.75rem; border-top: 1px solid #DAD4C6; text-align: center; font-size: 0.7rem; color: #6A6458; }
   #quotePreview.template-klasik .doc-head {
     display: flex; justify-content: space-between; align-items: flex-start;
     border-bottom: 2px solid #4E5C4F; padding-bottom: 0.9rem; margin-bottom: 1.1rem;
@@ -401,17 +402,6 @@
     padding: 0.55rem 1.1rem; font-weight: 800; font-size: 0.95rem;
   }
   #quotePreview.template-modern .doc-note { margin-top: 1.25rem; font-size: 0.78rem; color: #6A6458; white-space: pre-wrap; }
-
-  /* ---------- Ad slot ---------- */
-
-  .ad-slot {
-    border: 1px dashed var(--border);
-    border-radius: var(--radius-sm);
-    padding: 1.1rem;
-    text-align: center;
-    margin: 1.5rem 1.25rem;
-  }
-  .ad-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
 
   /* ---------- Footer ---------- */
   .site-footer { padding: 1.5rem 1.25rem 0.5rem; border-top: 1px solid var(--border); margin-top: 1rem; }
@@ -581,11 +571,6 @@
 </div>
 </div>
 
-<div class="ad-slot">
-  <!-- Reklam ağı entegrasyonu (ör. Google AdSense) burada yer alacak -->
-  <span class="ad-label">Reklam alanı</span>
-</div>
-
 <footer class="site-footer">
   <p>Girdiğin bilgiler yalnızca bu cihazda, tarayıcı içinde işlenir; bir sunucuya gönderilmez ya da kaydedilmez. Bu araçla oluşturulan belge bir fiyat teklifidir, resmi bir fatura değildir.</p>
   <p class="footer-links"><a href="gizlilik-politikasi.html">Gizlilik Politikası</a> · <a href="kullanim-sartlari.html">Kullanım Şartları</a> · <a href="iletisim.html">İletişim</a></p>
@@ -740,6 +725,7 @@
       : '<tr><td colspan="4" style="color:#6A6458;">Henüz kalem eklenmedi</td></tr>';
 
     var noteHtml = quoteNote ? '<div class="doc-note">' + escapeHtml(quoteNote) + '</div>' : '';
+    var creditHtml = '<div class="doc-credit">Teklifio ile hazırlandı</div>';
 
     var html;
     if (currentTemplate === 'klasik') {
@@ -760,7 +746,8 @@
           (vatRate ? '<tr><td>KDV (%' + vatRate + ')</td><td class="num">' + fmtMoney(vatAmount) + '</td></tr>' : '') +
           '<tr class="grand"><td>Genel Toplam</td><td class="num">' + fmtMoney(grandTotal) + '</td></tr>' +
         '</table></div>' +
-        noteHtml;
+        noteHtml +
+        creditHtml;
     } else {
       html =
         '<div class="doc-head">' +
@@ -778,6 +765,7 @@
           '<div class="doc-totals"><span class="grand-pill">Genel Toplam ' + fmtMoney(grandTotal) + '</span></div>' +
           (subtotal || vatRate ? '<div class="doc-note">Ara toplam: ' + fmtMoney(subtotal) + (vatRate ? ' · KDV (%' + vatRate + '): ' + fmtMoney(vatAmount) : '') + '</div>' : '') +
           noteHtml +
+          creditHtml +
         '</div>';
     }
 
